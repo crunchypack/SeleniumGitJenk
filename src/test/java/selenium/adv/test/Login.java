@@ -18,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -39,6 +40,27 @@ public class Login {
 		}catch (Exception e) {
 			System.out.println("FAIL");			
 		}
+  }
+  @Test(dependsOnMethods="test",enabled= true)
+  public void adminTest() throws InterruptedException {
+  	driver.findElement(By.id("details-title")).sendKeys("Mission: Impossible");
+  	driver.findElement(By.id("details-desc")).sendKeys("After his team is double-crossed, a spy races to find the mole who betrayed them and prevent a top-secret list from falling into the wrong hands.");
+  	driver.findElement(By.id("details-year")).sendKeys("1996");
+  	driver.findElement(By.id("details-length")).sendKeys("110");
+  	driver.findElement(By.id("details-director")).sendKeys("Brian De Palma");
+  	driver.findElement(By.id("details-url")).sendKeys("https://www.imdb.com/title/tt0117060/");
+  	Select genre = new Select(driver.findElement(By.className("custom-select")));
+  	genre.selectByVisibleText("Action");
+  	genre.selectByVisibleText("Thriller");
+  	genre.selectByVisibleText("Adventure");
+  	driver.findElement(By.cssSelector("input[id^=\'__BVID__\']")).sendKeys("Tom Cruise");
+  	
+			Thread.sleep(5000);
+		
+  }
+  @Test(dependsOnMethods="adminTest",enabled = true)
+  public void logout() {
+  	driver.findElement(By.className("btn-danger")).click();
   }
   @Test
   public void test3() {
